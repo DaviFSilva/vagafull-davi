@@ -9,11 +9,11 @@
 
 	@include('layout.partials.nav')
 
-    <main role="main" class="container">
+    <main role="main" class="container flex justify-center">
 
-      <div class="starter-template">
-        <div class="row">
-           <div class="col-sm-8">
+      <div class="starter-template" style="max-width: 690px">
+        <div class="">
+           <div class="">
        			@yield('content')
        		</div>
        	</div>
