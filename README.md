@@ -1,66 +1,111 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Tarefa Vaga Full Stack
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A RT Medical tem como seu principal produto o RT Connect um software cloud para gestão de conferência do tratamento de câncer em radioterapia. Utilizamos várias linguagens no sistema como python, java, C++, R Lang e PHP. Ele foi pensado para ser um sistema modular, aproveitando o melhor de cada linguagem, sendo assim a tecnologia básica que roda toda infraestrutura são os contêineres Linux. Para isso utilizamos o software Docker para construir e manter os contêineres ativos. Nesta vaga para desenvolvedor fullstack você vai trabalhar especificamente com PHP utilizando o framework Laravel. O laravel é o responsável por servir as páginas web e comunicar com os módulos do sistema via Restful. Para você ter uma ideia, toda a parte de processamento de imagens é feita em C++, o python faz a parte de simulação e cálculos matemáticos, mas tudo isso é mostrado ao usuário usando o PHP com o Laravel.
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Utilizamos o framework CSS Materialize ( http://materializecss.com/). A baixo está o tutorial.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# 1 Configurando Ambiente de Desenvolvimento
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# a) Instalar o Docker:
 
-## Learning Laravel
+Referência: https://docs.docker.com/install/#supported-platforms
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Usuário Linux Debian:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```
+$ curl -fsSL get.docker.com -o get-docker.sh
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+$ sudo sh get-docker.sh
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```
+# b) Instalar o Docker Compose:
+Referência: https://docs.docker.com/compose/install/#install-compose
 
-### Premium Partners
+```
+$ sudo curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s-uname -m`-o /usr/local/bin/docker-compose
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+$ sudo chmod +x /usr/local/bin/docker-compose
 
-## Contributing
+```
+# 2 Clonando projeto
+Referência: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Instalando Git
 
-## Code of Conduct
+```
+$ sudo apt-get install git
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+Clonando projeto do Github:
 
-## Security Vulnerabilities
+```
+$ git clone https://github.com/rtmedical/vagafull.git
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+# 3 Rodando Projeto
 
-## License
+# a) Acesse a pasta vagafull/docker
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Na pasta docker, estão todos os arquivos para construção dos contêineres, acesse ela usando o comando.
+
+```
+$ cd vagafull/docker
+
+```
+# b) Construa os contêineres docker
+Dentro da pasta docker, execute o docker-compose para construir os contêineres do software, neste caso iremos rodar o contêiner nginx e mariadb
+
+```
+$ docker-compose up -d nginx mariadb
+
+```
+# c) Migrando banco de dados
+
+Agora vamos migrar o banco de dados, o laravel utilizar o Artisan, que é a ferramenta de linha de comando do Laravel. Com ela, podemos gerar a maioria das classes que são as ferramentas disponibilizadas pelo framework.
+
+Lembra que estamos rodando um contêiner?
+
+Logo temos que acessar o terminal do contêiner onde o laravel está instalado para rodar os comandos Artisan, então na pasta docker você rodará os comandos abaixo:
+
+```
+$ cd vagafull/docker
+
+$ echo "Entrando no container onde o laravel está instalado"
+
+$ docker-compose exec workspace bash
+
+$ echo "Já estamos dentro do contêiner, agora execute o artisan"
+
+root@idconteiner $ php artisan migrate
+
+root@idconteiner $ echo "agora vamos sair do contêiner de volta para a pasta docker"
+
+root@idconteiner $ exit
+
+```
+# 4 Acessando software instalado
+No navegador digite o seguinte url:
+
+```
+http://localhost/
+
+```
+# 5 Criando CRUD para testar laravel
+Tutorial Básico de como fazer um CRUD : https://www.5balloons.info/tutorial-simple-crud-operations-in-laravel-5-5/
+
+Faça um CRUD para conhecer o framework, ele é bem simples de usar e utiliza o padrão MVC. Todos os comandos de terminal para gerar migração, criar arquivos você deve rodar dentro do contêiner
+
+```
+$ cd vagafull/docker
+
+$ echo "Entrando no container onde o laravel está instalado"
+
+$ docker-compose exec workspace bash
+
+$ echo "Já estamos dentro do contêiner, agora execute o artisan"
+
+root@idconteiner $ php artisan MEU COMANDO…
+
+```
