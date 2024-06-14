@@ -1,5 +1,5 @@
 # Desafio VagaFull
-[![Static Badge](https://img.shields.io/badge/en-blue?logo=java&label=readme)](README.md)
+[![Static Badge](https://img.shields.io/badge/en-blue?logo=java&label=readme)](README-en.md)
 
 Resolução do desafio VagaFull da RT Medical Systems. Esse desafio foi finalizado com sucesso por Davi Feitosa. Todos os requisitos para a conclusão do projeto foram alcançados.
 
